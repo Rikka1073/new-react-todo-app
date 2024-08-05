@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import styled from "styled-components";
 import { getAllTodo } from "../utils/supabaseFunction";
+import { addTodo } from "../utils/supabaseFunction";
+import { deleteTodo } from "../utils/supabaseFunction";
 
 function App() {
   const [studyText, setStudyText] = useState("");
@@ -9,7 +11,7 @@ function App() {
   const [record, setRecord] = useState([]);
   const [error, setError] = useState([]);
   const [time, setTime] = useState([]);
-  const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const onChangeText = (event) => {
     setStudyText(event.target.value);
@@ -29,6 +31,7 @@ function App() {
       const newRecords = [...record, newRecord];
       const sumTim = [...time, newRecord.time];
       setRecord(newRecords);
+      addTodo(studyText, studyTime);
       setStudyText("");
       setStudyTime("");
       setError([]);
@@ -41,13 +44,25 @@ function App() {
   }, 0);
 
   useEffect(() => {
-    const getTodos = async () => {
-      const todos = await getAllTodo();
-      setTodos(todos);
-      console.log(todos);
+    const getRecord = async () => {
+      const record = await getAllTodo();
+      setRecord(record);
+      console.log(record);
+      const recordTime = record.map((item) => {
+        return item.time;
+      });
+      setLoading(false);
+      setTime(recordTime);
     };
-    getTodos();
+    getRecord();
   }, []);
+
+  const onClickDeleteTodo = async (id) => {
+    await deleteTodo(id);
+    console.log(`${id}を削除しました`);
+    const record = await getAllTodo();
+    setRecord(record);
+  };
 
   return (
     <SContainer>
@@ -68,13 +83,21 @@ function App() {
         <p>入力されている時間 {studyTime}時間</p>
       </div>
       <SLogArea>
-        {record.map((record, index) => {
+        <div>{loading ? <p>ロード中</p> : <p>データを取得しました</p>}</div>
+        {record.map((record) => {
           return (
-            <div className="" key={index}>
+            <SrecordArea key={record.id}>
               <p>
                 {record.title} {record.time}時間
               </p>
-            </div>
+              <button
+                onClick={() => {
+                  onClickDeleteTodo(record.id);
+                }}
+              >
+                削除
+              </button>
+            </SrecordArea>
           );
         })}
       </SLogArea>
@@ -94,9 +117,9 @@ function App() {
 
 const SContainer = styled.div`
   text-align: left;
-  width: 600px;
+  max-width: 600px;
   margin: 0 auto;
-  background-color: aquamarine;
+  background-color: #29e68e;
   padding: 30px;
   position: absolute;
   top: 50%;
@@ -116,7 +139,7 @@ const SButton = styled.button`
   outline: none;
   border-radius: 100px;
   padding: 10px 40px;
-  border: 1px solid;
+  border: 0px solid;
 `;
 
 const SInput = styled.input`
@@ -125,7 +148,6 @@ const SInput = styled.input`
 
 const SLogArea = styled.div`
   background-color: #fff;
-  border-radius: 100px;
   padding: 10px;
   width: 300px;
   margin-bottom: 20px;
@@ -134,6 +156,30 @@ const SLogArea = styled.div`
 const SErroText = styled.p`
   color: #ff0000;
   font-weight: bold;
+`;
+
+const SrecordArea = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  align-items: center;
+  padding: 20px 0;
+  background-color: #c4fdea;
+  border-radius: 999px;
+  p {
+    margin: 0;
+  }
+  button {
+    background-color: #fff;
+    outline: none;
+    border: 0px solid;
+    border-radius: 100px;
+    padding: 10px 20px;
+  }
+  button:hover {
+    background-color: #fe6a6a;
+    color: #fff;
+  }
 `;
 
 export default App;
