@@ -47,7 +47,6 @@ function App() {
     const getRecord = async () => {
       const record = await getAllTodo();
       setRecord(record);
-      console.log(record);
       const recordTime = record.map((item) => {
         return item.time;
       });
@@ -59,7 +58,6 @@ function App() {
 
   const onClickDeleteTodo = async (id) => {
     await deleteTodo(id);
-    console.log(`${id}を削除しました`);
     const record = await getAllTodo();
     setRecord(record);
   };

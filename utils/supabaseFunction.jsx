@@ -10,6 +10,5 @@ export const addTodo = async (studyText, studyTime) => {
 };
 
 export const deleteTodo = async (id) => {
-  console.log(id);
   await supabase.from("study-record").delete().eq("id", id);
 };
