@@ -36,10 +36,10 @@ jobs:
 
   deploy:
     name: deploy
+    runs-on: ubuntu-latest
     env:
       FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -65,9 +65,3 @@ jobs:
 
       - name: deploy to hosting
         run: firebase deploy
-
-      # - name: deploy to Firebase Hosting
-      #   run: |
-      #     firebase deploy --token $FIREBASE_TOKEN
-      #   env:
-      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
