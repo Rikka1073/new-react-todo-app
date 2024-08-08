@@ -61,7 +61,7 @@ jobs:
         #   echo "${{ secrets.FIREBASE_KEY }}" | base64 -d > ./firebase-key.json
         #   echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/firebase-key.json" >> $GITHUB_ENV
         run: |
-          echo "${{ secrets.FIREBASE_KEY }}" | base64 --decode > "firebase-key"
+          echo "${{ secrets.FIREBASE_PROJECT_ID }}" | base64 --decode > "firebase-key"
 
       - name: Deploy Firebase functions
         shell: bash
