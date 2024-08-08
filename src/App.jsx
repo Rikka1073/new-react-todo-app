@@ -64,7 +64,7 @@ function App() {
 
   return (
     <SContainer>
-      <STitle>学習記録一覧（変更しました）</STitle>
+      <STitle>学習記録一覧（変更完了）</STitle>
       <div>
         学習内容
         <SInput type="text" onChange={onChangeText} value={studyText} />
