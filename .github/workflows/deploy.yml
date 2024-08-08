@@ -1,23 +1,65 @@
-name: Firebase Deploy
+# name: Firebase Deploy
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: "20"
+#       - run: npm ci
+#       - run: npm run build
+#       - name: GitHub Action for Firebase
+#         uses: w9jds/firebase-action@v1.5.0
+#         with:
+#           args: deploy --only hosting
+#         env:
+#           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+name: React Firebase CICD
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Start Deploy!
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: npm ci
-      - run: npm run build
-      - name: GitHub Action for Firebase
-        uses: w9jds/firebase-action@v1.5.0
-        with:
-          args: deploy --only hosting
+
+      - name: Install Dependencies
+        run: |
+          npm install
+        working-directory: ./
+
+      - name: Build
+        run: |
+          npm run build
+        working-directory: ./
+
+      - name: Install Firebase Tools
+        run: |
+          npm install -g firebase-tools
+        working-directory: ./
+
+      - name: Deploy
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_TOKEN_PROD: ${{ secrets.FIREBASE_TOKEN_PROD }}
+        run: |
+          firebase deploy --only hosting --token $FIREBASE_TOKEN_PROD
+        working-directory: ./
