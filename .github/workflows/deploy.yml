@@ -30,11 +30,11 @@ jobs:
         working-directory: ./
 
       - name: Install Firebase Tools
+        run: |
+          npm install -g firebase-tools
         env:
           VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
           VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
-        run: |
-          npm install -g firebase-tools
         working-directory: ./
 
       - name: Deploy
