@@ -37,6 +37,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Start Deploy!
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
       - name: Deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
