@@ -22,7 +22,6 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-        working-directory: ./
 
       - name: Build
         run: |
@@ -30,13 +29,14 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
           VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
-        working-directory: ./
 
       - name: Install Firebase Tools
         run: |
           npm install -g firebase-tools
-        working-directory: ./
 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
