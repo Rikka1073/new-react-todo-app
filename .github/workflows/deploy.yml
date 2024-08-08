@@ -59,7 +59,7 @@ jobs:
 
       - name: Deploy
         env:
-          FIREBASE_TOKEN_PROD: ${{ secrets.FIREBASE_TOKEN_PROD }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
-          firebase deploy --only hosting --token $FIREBASE_TOKEN_PROD
+          firebase deploy --only hosting --token $FIREBASE_TOKEN
         working-directory: ./
