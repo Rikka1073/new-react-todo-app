@@ -64,13 +64,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: ./dist-artifact
+          path: ./dist
 
-      - name: Prepare dist directory
-        run: |
-          rm -rf ./dist
-          mkdir -p ./dist
-          mv ./dist-artifact/* ./dist/
+      # - name: Prepare dist directory
+      #   run: |
+      #     rm -rf ./dist
+      #     mkdir -p ./dist
+      #     mv ./dist-artifact/* ./dist/
 
       - name: make FIREBASE_KEY
         run: |
