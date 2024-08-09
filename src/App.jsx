@@ -117,7 +117,8 @@ const SContainer = styled.div`
   text-align: left;
   max-width: 600px;
   margin: 0 auto;
-  background-color: #29e68e;
+  /* background-color: #29e68e; */
+  background-color: blue;
   padding: 30px;
   position: absolute;
   top: 50%;
