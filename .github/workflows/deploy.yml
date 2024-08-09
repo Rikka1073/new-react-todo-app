@@ -71,7 +71,7 @@ jobs:
           npm install -g firebase-tools
 
       - name: Check if dist directory exists
-        run: ls -la ./dist
+        run: ls -la $GITHUB_WORKSPACE/dist
 
       - name: Download Artifact
         uses: actions/download-artifact@v3
