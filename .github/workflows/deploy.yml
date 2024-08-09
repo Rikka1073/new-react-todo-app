@@ -35,11 +35,14 @@ jobs:
       - name: Check if dist directory exists
         run: ls -la ./dist
 
+      - name: Build Project
+        run: mkdir -p $GITHUB_WORKSPACE/dist
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: ./dist
+          path: $GITHUB_WORKSPACE/dist
 
   deploy:
     runs-on: ubuntu-latest
@@ -74,6 +77,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
+          path: $GITHUB_WORKSPACE/dist
 
       - name: make FIREBASE_KEY
         run: |
