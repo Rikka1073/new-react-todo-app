@@ -32,6 +32,9 @@ jobs:
           VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
           VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
 
+      - name: Check if dist directory exists
+        run: ls -la ./dist
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
