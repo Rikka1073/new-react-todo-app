@@ -66,11 +66,11 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/firebase-key.json" >> $GITHUB_ENV
 
       - name: Deploy Firebase functions
-        shell: bash
-        run: firebase deploy --only hosting
         env:
           FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+        shell: bash
+        run: firebase deploy --only hosting
 
       - name: Remove Credentials File
         if: success() || failure()
