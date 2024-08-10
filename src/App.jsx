@@ -65,9 +65,9 @@ function App() {
   return (
     <SContainer>
       <STitle>学習記録一覧（変更完了）</STitle>
-      <STitle>
+      <SSubTitle>
         <title data-testid="title">Hello Jest</title>
-      </STitle>
+      </SSubTitle>
       <div>
         学習内容
         <SInput type="text" onChange={onChangeText} value={studyText} />
@@ -134,6 +134,13 @@ const STitle = styled.h1`
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 32px;
+`;
+
+const SSubTitle = styled.h2`
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
 `;
 
 const SButton = styled.button`
