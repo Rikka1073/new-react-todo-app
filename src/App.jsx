@@ -64,8 +64,10 @@ function App() {
 
   return (
     <SContainer>
-      <title data-testid="title">Hello Jest</title>
       <STitle>学習記録一覧（変更完了）</STitle>
+      <STitle>
+        <title data-testid="title">Hello Jest</title>
+      </STitle>
       <div>
         学習内容
         <SInput type="text" onChange={onChangeText} value={studyText} />
