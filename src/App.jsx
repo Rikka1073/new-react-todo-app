@@ -46,6 +46,7 @@ function App() {
   useEffect(() => {
     const getRecord = async () => {
       const record = await getAllTodo();
+      // console.log("Fetched record:", record);
       setRecord(record);
       const recordTime = record.map((item) => {
         return item.time;
@@ -64,17 +65,15 @@ function App() {
 
   return (
     <SContainer>
-      <STitle>学習記録一覧（変更完了）</STitle>
-      <SSubTitle>
-        <title data-testid="title">Hello Jest</title>
-      </SSubTitle>
+      <title data-testid="title">Hello Jest</title>
+      <STitle data-testid="main-title">学習記録一覧</STitle>
       <div>
-        学習内容
-        <SInput type="text" onChange={onChangeText} value={studyText} />
+        <label htmlFor="studyText">学習内容</label>
+        <SInput id="studyText" type="text" onChange={onChangeText} value={studyText} />
       </div>
       <div>
-        学習時間
-        <SInput type="text" onChange={onChangeTime} value={studyTime} />
+        <label htmlFor="studyTime">学習時間</label>
+        <SInput id="studyTime" type="text" onChange={onChangeTime} value={studyTime} />
         時間
       </div>
       <div>
@@ -85,7 +84,7 @@ function App() {
       </div>
       <SLogArea>
         <div>{loading ? <p>ロード中</p> : <p>データを取得しました</p>}</div>
-        {record.map((record) => {
+        {record.map((record, index) => {
           return (
             <SrecordArea key={record.id}>
               <p>
@@ -95,6 +94,10 @@ function App() {
                 onClick={() => {
                   onClickDeleteTodo(record.id);
                 }}
+                className="delete-button"
+                role="button"
+                key={index}
+                data-testid={`delete-button-${index}`}
               >
                 削除
               </button>
@@ -120,8 +123,7 @@ const SContainer = styled.div`
   text-align: left;
   max-width: 600px;
   margin: 0 auto;
-  /* background-color: #29e68e; */
-  background-color: blue;
+  background-color: #29e68e;
   padding: 30px;
   position: absolute;
   top: 50%;
