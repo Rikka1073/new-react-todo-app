@@ -84,9 +84,9 @@ function App() {
       </div>
       <SLogArea>
         <div>{loading ? <p>ロード中</p> : <p>データを取得しました</p>}</div>
-        {record.map((record, index) => {
+        {record.map((record) => {
           return (
-            <SrecordArea key={record.id}>
+            <SrecordArea key={record.id} data-testid="record-box">
               <p>
                 {record.title} {record.time}時間
               </p>
@@ -96,8 +96,7 @@ function App() {
                 }}
                 className="delete-button"
                 role="button"
-                key={index}
-                data-testid={`delete-button-${index}`}
+                data-testid="delete-button"
               >
                 削除
               </button>
