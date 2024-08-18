@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor, within } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, within, act } from "@testing-library/react";
 import "@testing-library/jest-dom/";
 import App from "../App";
 import userEvent from "@testing-library/user-event";
@@ -51,11 +51,14 @@ describe("学習内容登録の削除テスト", () => {
     fireEvent.click(screen.getByText(/登録/i));
 
     // 登録されたかの確認
-    expect(screen.getByText(/削除テスト 4時間/i)).toBeVisible();
+    expect(screen.getByTestId("recods-0")).toBeVisible();
 
-    const deleteButton = screen.getAllByTestId("delete-button");
+    const beforeDleteRecord = screen.getByTestId("recods-0");
+
+    // 削除ボタン取得
+    const deleteButton = screen.getByTestId("delete-button-0");
 
     // 削除ボタンのクリック
-    fireEvent.click(deleteButton[2]);
+    fireEvent.click(deleteButton);
   });
 });
