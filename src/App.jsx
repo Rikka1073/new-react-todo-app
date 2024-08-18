@@ -86,8 +86,8 @@ function App() {
         <div>{loading ? <p>ロード中</p> : <p>データを取得しました</p>}</div>
         {record.map((record, index) => {
           return (
-            <SrecordArea key={record.id} data-testid={`record-box-${index}`}>
-              <p data-testid={`recods-${index}`}>
+            <SrecordArea key={record.id} data-testid={`record-box-${index}`} className="record-box">
+              <p data-testid="record-text">
                 {record.title} {record.time}時間
               </p>
               <button
@@ -107,7 +107,9 @@ function App() {
       <div>
         <div></div>
       </div>
-      <SButton onClick={onClickAddTodo}>登録</SButton>
+      <SButton onClick={onClickAddTodo} data-testid="add-button">
+        登録
+      </SButton>
       <div>
         <SErroText>{error}</SErroText>
       </div>

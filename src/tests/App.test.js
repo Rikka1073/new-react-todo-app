@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor, within, act } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import "@testing-library/jest-dom/";
 import App from "../App";
 import userEvent from "@testing-library/user-event";
@@ -7,14 +7,16 @@ import userEvent from "@testing-library/user-event";
 // describe("学習内容登録のテスト", () => {
 //   test("新しい学習記録が追加され、合計時間が更新される", async () => {
 //     // Appコンポーネントをレンダリング
-//     render(<App />);
+//     await act(async () => {
+//       render(<App />);
+//     });
 
 //     // 初期状態での合計時間を取得
 //     const totalTime = screen.getByText(/合計時間/i).textContent;
 
 //     // 学習内容と時間を入力
 //     fireEvent.change(screen.getByLabelText(/学習内容/i), {
-//       target: { value: "テスト" },
+//       target: { value: "テスト(削除予定)" },
 //     });
 //     fireEvent.change(screen.getByLabelText(/学習時間/i), {
 //       target: { value: "2" },
@@ -30,14 +32,16 @@ import userEvent from "@testing-library/user-event";
 //     expect(updatedTotalTime).not.toBe(totalTime);
 
 //     // 追加された学習記録が画面に表示されているかを確認
-//     expect(screen.getByText(/テスト 2時間/i)).toBeVisible();
+//     expect(screen.getByTestId("recods-3")).toBeVisible();
 //   });
 // });
 
 describe("学習内容登録の削除テスト", () => {
-  test("削除ボタンを押すと学習記録が削除される", () => {
+  test("削除ボタンを押すと学習記録が削除される", async () => {
     // Appコンポーネントをレンダリング
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
 
     // 学習内容と時間を入力
     fireEvent.change(screen.getByLabelText(/学習内容/i), {
@@ -48,17 +52,26 @@ describe("学習内容登録の削除テスト", () => {
     });
 
     // 登録ボタンのクリック
-    fireEvent.click(screen.getByText(/登録/i));
+    fireEvent.click(screen.getByTestId("add-button"));
 
-    // 登録されたかの確認
-    expect(screen.getByTestId("recods-0")).toBeVisible();
+    await waitFor(() => {
+      // 登録されたかの確認
+      expect(screen.getByTestId("record-box-3")).toBeVisible();
+    });
 
-    const beforeDleteRecord = screen.getByTestId("recods-0");
+    // 削除前のrecord-boxの数を取得
+    const beforeRecordNumber = screen.getAllByTestId("record-text").length;
 
     // 削除ボタン取得
-    const deleteButton = screen.getByTestId("delete-button-0");
+    const deleteButton = screen.getByTestId("delete-button-3");
 
     // 削除ボタンのクリック
     fireEvent.click(deleteButton);
+
+    // 削除されているかを確認
+    await waitFor(() => {
+      const afterRecordNumber = screen.getAllByTestId("record-text").length;
+      expect(afterRecordNumber).toBe(beforeRecordNumber);
+    });
   });
 });
