@@ -87,9 +87,11 @@ function App() {
         {record.map((record, index) => {
           return (
             <SrecordArea key={record.id} data-testid={`record-box-${index}`} className="record-box">
-              <p data-testid="record-text">
-                {record.title} {record.time}時間
-              </p>
+              <div data-testid="record-box">
+                <p data-testid={`record-text-${index}`}>
+                  {record.title} {record.time}時間
+                </p>
+              </div>
               <button
                 onClick={() => {
                   onClickDeleteTodo(record.id);
