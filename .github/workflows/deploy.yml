@@ -98,4 +98,4 @@ jobs:
         run: npm install
 
       - name: Do Jest test
-        run: npn run test
+        run: npm run test
