@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import "@testing-library/jest-dom/";
 import App from "../App";
-import userEvent from "@testing-library/user-event";
 
 describe("学習内容登録のテスト", () => {
   test("新しい学習記録が追加され、合計時間が更新される", async () => {
@@ -74,5 +73,24 @@ describe("学習内容登録の削除テスト", () => {
       const afterRecordNumber = screen.getAllByTestId("record-box").length;
       expect(afterRecordNumber).toBe(beforeRecordNumber);
     });
+  });
+});
+
+describe("エラーが表示されるかのテスト", () => {
+  test("入力をしないで登録を押すとエラーが表示される", async () => {
+    // Appコンポーネントをレンダリング
+    await act(async () => {
+      render(<App />);
+    });
+
+    const addButton = screen.getByTestId("add-button");
+    fireEvent.click(addButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.getByText("入力されていない項目があります");
+      expect(errorMessage).toBeVisible();
+    });
+
+    screen.debug();
   });
 });
