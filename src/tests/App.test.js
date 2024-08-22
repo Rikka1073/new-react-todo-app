@@ -25,13 +25,14 @@ describe("学習内容登録のテスト", () => {
     fireEvent.click(screen.getByText(/登録/i));
 
     await waitFor(() => {
+      // 追加された学習記録が画面に表示されているかを確認
+      const newRecord = screen.getByTestId("record-text-3");
+      expect(newRecord).toBeVisible();
+
       // 更新後の合計時間を取得
       const updatedTotalTime = screen.getByText(/合計時間/i).textContent;
       // 合計時間が増えたことを確認
       expect(updatedTotalTime).not.toBe(totalTime);
-
-      // 追加された学習記録が画面に表示されているかを確認
-      expect(screen.getByTestId("record-text-3")).toBeVisible();
     });
   });
 });

@@ -1,8 +1,28 @@
-# React + Vite
+# React-todo-app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the first app I created with React, react-todoapp!
+It helps you keep track of your daily learning.
+You can manage your daily study contents and time.
 
-Currently, two official plugins are available:
+# Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+git clone https://github.com/Rikka1073/new-react-todo-app.git
+```
+
+# Environment
+
+Set values for the following keys. supabase can be used to manage your data.
+
+```
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+```
+
+# Setup
+
+Enter the following command to start
+
+```
+npm run dev
+```
